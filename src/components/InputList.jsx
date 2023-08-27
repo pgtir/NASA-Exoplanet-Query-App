@@ -6,13 +6,13 @@ const InputList = (props) => {
   const { input, setInput, planetData } = props;
 
   const getOptions = (key) => {
-    const uniqueValuesSet = new Set();
+    const hashSet = new Set();
     const options = [];
 
     for (const item of planetData) {
       const value = item[key];
-      if (value && !uniqueValuesSet.has(value)) {
-        uniqueValuesSet.add(value);
+      if (value && !hashSet.has(value)) {
+        hashSet.add(value);
         options.push({ value, label: value });
       }
     }

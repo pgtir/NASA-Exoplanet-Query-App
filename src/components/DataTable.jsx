@@ -9,7 +9,18 @@ import { Link, Typography } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import headers from "../utils/headers";
 
-export default function DataTable({ results }) {
+export default function DataTable({ results, setResults }) {
+
+  const sortData = (key, order) => {
+    const resultData = [...results];
+    resultData.sort((a, b) => {
+      if (a[key] === b[key]) {
+        return 0;
+      }
+      return order === "ascending" ? (a[key] < b[key] ? -1 : 1) : (a[key] < b[key] ? 1 : -1)
+    });
+    setResults(resultData)
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -18,6 +29,7 @@ export default function DataTable({ results }) {
           <TableRow>
             {headers.map((header) => (
               <TableCell
+                key={header.key}
                 sx={{ color: "grey" }}
                 align={header.key === "pl_name" ? "left" : "right"}
               >
@@ -25,6 +37,7 @@ export default function DataTable({ results }) {
                   {header.title}
                 </Typography>
                 <ArrowUpward
+                  onClick={() => sortData(header.key, "ascending")}
                   sx={{
                     mr: 0.8,
                     cursor: "pointer",
@@ -39,6 +52,7 @@ export default function DataTable({ results }) {
                   }}
                 />
                 <ArrowDownward
+                  onClick={() => sortData(header.key, "descending")}
                   sx={{
                     cursor: "pointer",
                     fontSize: "16px",
@@ -56,17 +70,24 @@ export default function DataTable({ results }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {results.map((row, i) => (
+          {results.map((result) => (
             <TableRow
+              key={result.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <Link href={`https://exoplanetarchive.ipac.caltech.edu/overview/${row.pl_name}`} target="_blank" underline="hover">{row.pl_name}</Link>
+                <Link
+                  href={`https://exoplanetarchive.ipac.caltech.edu/overview/${result.pl_name}`}
+                  target="_blank"
+                  underline="hover"
+                >
+                  {result.pl_name}
+                </Link>
               </TableCell>
-              <TableCell align="right">{row.hostname}</TableCell>
-              <TableCell align="right">{row.discoverymethod}</TableCell>
-              <TableCell align="right">{row.disc_year}</TableCell>
-              <TableCell align="right">{row.disc_facility}</TableCell>
+              <TableCell align="right">{result.hostname}</TableCell>
+              <TableCell align="right">{result.discoverymethod}</TableCell>
+              <TableCell align="right">{result.disc_year}</TableCell>
+              <TableCell align="right">{result.disc_facility}</TableCell>
             </TableRow>
           ))}
         </TableBody>

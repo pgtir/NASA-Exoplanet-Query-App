@@ -30,9 +30,26 @@ const SearchButton = (props) => {
       return;
     }
     const results = [];
+    const hashSet = new Set();
+
     for (const item of planetData) {
       const matched = queryKeys.every((key) => item[key] === input[key].value);
-      if (matched) results.push(item);
+
+      if (matched) {
+        const id =
+          item.pl_name +
+          item.hostname +
+          item.discoverymethod +
+          item.disc_year +
+          item.disc_facility;
+        if (!hashSet.has(id)) {
+          hashSet.add(id);
+          results.push({
+            ...item,
+            id,
+          });
+        }
+      }
     }
     setResults(results);
     if (results.length === 0) {

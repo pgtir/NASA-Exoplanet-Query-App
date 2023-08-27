@@ -16,7 +16,7 @@ function App() {
       </Typography>
       <QueryPanel setResults={setResults} />
       {results.length ? (
-        <DataTable results={results} />
+        <DataTable results={results} setResults={setResults} />
       ) : (
         <Stack
           justifyContent="center"
