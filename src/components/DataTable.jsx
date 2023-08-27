@@ -5,12 +5,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Link, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import headers from "../utils/headers";
+import TableBodyData from "./TableBodyData";
 
-export default function DataTable({ results, setResults }) {
-
+const DataTable = (props) => {
+  const { results, setResults} = props;
   const sortData = (key, order) => {
     const resultData = [...results];
     resultData.sort((a, b) => {
@@ -19,13 +20,13 @@ export default function DataTable({ results, setResults }) {
       }
       return order === "ascending" ? (a[key] < b[key] ? -1 : 1) : (a[key] < b[key] ? 1 : -1)
     });
-    setResults(resultData)
+    setResults(resultData);
   };
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
-        <TableHead>
+        <TableHead stickyHeader>
           <TableRow>
             {headers.map((header) => (
               <TableCell
@@ -70,28 +71,11 @@ export default function DataTable({ results, setResults }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {results.map((result) => (
-            <TableRow
-              key={result.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                <Link
-                  href={`https://exoplanetarchive.ipac.caltech.edu/overview/${result.pl_name}`}
-                  target="_blank"
-                  underline="hover"
-                >
-                  {result.pl_name}
-                </Link>
-              </TableCell>
-              <TableCell align="right">{result.hostname}</TableCell>
-              <TableCell align="right">{result.discoverymethod}</TableCell>
-              <TableCell align="right">{result.disc_year}</TableCell>
-              <TableCell align="right">{result.disc_facility}</TableCell>
-            </TableRow>
-          ))}
+         <TableBodyData results={results}/>
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+export default DataTable;

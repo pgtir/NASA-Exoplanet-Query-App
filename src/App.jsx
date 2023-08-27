@@ -2,6 +2,7 @@ import QueryPanel from "./components/QueryPanel";
 import { Stack, Typography } from "@mui/material";
 import DataTable from "./components/DataTable";
 import { useState } from "react";
+import Fallback from "./components/Fallback";
 
 function App() {
   const [results, setResults] = useState([]);
@@ -16,24 +17,9 @@ function App() {
       </Typography>
       <QueryPanel setResults={setResults} />
       {results.length ? (
-        <DataTable results={results} setResults={setResults} />
+        <DataTable results={results} setResults={setResults}  />
       ) : (
-        <Stack
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            height: "100%",
-            border: "2px dotted #698aff",
-            borderRadius: "10px",
-          }}
-        >
-          <Typography fontWeight="bold" sx={{ color: "grey" }}>
-            Exoplanets are planets outside the solar System
-          </Typography>
-          <Typography fontWeight="bold" sx={{ color: "#698aff" }}>
-            Find your favourite planet !
-          </Typography>
-        </Stack>
+        <Fallback/>
       )}
     </Stack>
   );
