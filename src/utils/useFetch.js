@@ -6,7 +6,7 @@ const useFetch = () => {
 
   useEffect(() => {
     const fetchParseData = async () => {
-        const response = await fetch("src/assets/planet_data.csv");
+        const response = await fetch("/public/planet_data.csv");
         const PlanetData = await response.text();
         Papa.parse(PlanetData, {
           header: true,
