@@ -1,10 +1,10 @@
 import QueryPanel from "./components/QueryPanel";
 import { Stack, Typography } from "@mui/material";
-import useFetch from "./utils/useFetch";
+import DataTable from "./components/DataTable";
+import { useState } from "react";
 
 function App() {
-  const planetData = useFetch();
-
+  const [results, setResults] = useState([]);
   return (
     <Stack sx={{ height: "100vh", py: 2, px: 5 }}>
       <Typography
@@ -14,7 +14,27 @@ function App() {
       >
         NASA Exoplanet Query
       </Typography>
-      <QueryPanel planetData={planetData} />
+      <QueryPanel setResults={setResults} />
+      {results.length ? (
+        <DataTable results={results} />
+      ) : (
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            height: "100%",
+            border: "2px dotted #698aff",
+            borderRadius: "10px",
+          }}
+        >
+          <Typography fontWeight="bold" sx={{ color: "grey" }}>
+            Exoplanets are planets outside the solar System
+          </Typography>
+          <Typography fontWeight="bold" sx={{ color: "#698aff" }}>
+            Find your favourite planet !
+          </Typography>
+        </Stack>
+      )}
     </Stack>
   );
 }

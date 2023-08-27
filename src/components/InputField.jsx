@@ -4,7 +4,7 @@ import CustomMenuList from "./CustomMenuList";
 const InputField = (props) => {
 
   const { label, options, input, setInput, name } = props;
-
+  
   const handleChange = (selectedOption) => {
     setInput((prevInputs) => {
       return {

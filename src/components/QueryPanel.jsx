@@ -1,15 +1,20 @@
 import { Stack } from "@mui/material";
-import Buttons from "./Buttons";
 import InputList from "./InputList";
 import { useState } from "react";
+import useFetch from "../utils/useFetch";
+import SearchButton from "./SearchButton";
+import ClearButton from "./ClearButton";
 
-const QueryPanel = ({ planetData }) => {
+const QueryPanel = ({ setResults }) => {
+  const planetData = useFetch();
+
   const [input, setInput] = useState({
     hostname: "",
     discoverymethod: "",
     disc_year: "",
-    disc_facility: ""
+    disc_facility: "",
   });
+
   return (
     <Stack
       mb={5}
@@ -21,7 +26,18 @@ const QueryPanel = ({ planetData }) => {
       }}
     >
       <InputList planetData={planetData} input={input} setInput={setInput} />
-      <Buttons setInput={setInput} />
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        sx={{ gap: "14px" }}
+      >
+        <SearchButton
+          input={input}
+          planetData={planetData}
+          setResults={setResults}
+        />
+        <ClearButton setInput={setInput} setResults={setResults} />
+      </Stack>
     </Stack>
   );
 };

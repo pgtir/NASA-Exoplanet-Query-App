@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import inputs from "../utils/inputs";
 
 const InputList = (props) => {
-  const { planetData, input, setInput } = props;
+  const { input, setInput, planetData } = props;
 
   const getOptions = (key) => {
     const uniqueValuesSet = new Set();
@@ -11,7 +11,7 @@ const InputList = (props) => {
 
     for (const item of planetData) {
       const value = item[key];
-      if (!uniqueValuesSet.has(value)) {
+      if (value && !uniqueValuesSet.has(value)) {
         uniqueValuesSet.add(value);
         options.push({ value, label: value });
       }
