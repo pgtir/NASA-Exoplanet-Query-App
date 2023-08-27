@@ -1,12 +1,11 @@
 import { Stack } from "@mui/material";
 import InputList from "./InputList";
 import { useState } from "react";
-import useFetch from "../utils/useFetch";
 import SearchButton from "./SearchButton";
 import ClearButton from "./ClearButton";
+import planetData from "../utils/planet_data.json"
 
 const QueryPanel = ({ setResults }) => {
-  const planetData = useFetch();
 
   const [input, setInput] = useState({
     hostname: "",

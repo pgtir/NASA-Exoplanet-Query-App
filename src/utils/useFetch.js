@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
-
+const fs = require("fs");
+csvData = fs.readFileSync("./planet_data.csv")
 const useFetch = () => {
   const [planetData, setPlanetData] = useState(null);
 
   useEffect(() => {
     const fetchParseData = async () => {
-        const response = await fetch("/public/planet_data.csv");
-        const PlanetData = await response.text();
-        Papa.parse(PlanetData, {
+        Papa.parse(csvData, {
           header: true,
           complete: (result) => {
             setPlanetData(result.data);
