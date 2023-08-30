@@ -9,7 +9,7 @@
 - React JS
 - Material UI
 - react-select
-- rect-window
+- react-window
 
 ### Components & Features
 - Query input panel containing dropdowns along with "Clear" and "Search" Buttons.
